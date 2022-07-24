@@ -32,17 +32,20 @@ code __kalp__ is a social media to share our programming codes as post and it wi
 ### __POST__ :
 >    In this Post module users can share their codes after sharing these posts can be seen by anyone who is having an account in code**kalp**.It has been featured with *like*,*share* and *comment*
 
-![post](./post.png)
+![post](https://user-images.githubusercontent.com/90615630/180649941-d949523d-6623-457d-9342-27b861a9af03.png)
+
 
 ### __QUESTION__ :
 > This module will be having your error codes or doubt codes when your post your error codes in this module,the error codes will be corrected or clarified by any one who is having account in codekalp.
 
-![question](./question.png)
+
+![question](https://user-images.githubusercontent.com/90615630/180650058-d779aa2b-e752-4bc2-81ed-dafabfee4f9e.png)
 
 ### __ANSWER__ :
 > whatever the questions or error codes which has been posted in this module will be displayed and if any questions are answered will be shown here.
 
-![answer](./answering.png)
+![answering](https://user-images.githubusercontent.com/90615630/180649972-0f823ff9-1d4b-4541-9703-9be7b31538c7.png)
+
 
 
 
@@ -64,8 +67,9 @@ code __kalp__ is a social media to share our programming codes as post and it wi
 
 <hr>
 
+![sidebar](https://user-images.githubusercontent.com/90615630/180650100-12ae561d-f6f4-4697-9ce1-1c9dff6e0a60.png)
 
-![sidebar](./sidebar.png)
+
 *these are all the various navigations that you can perform with*
 
 <span style="color:red;font-weight:bold;">As this has been built in my local server so It couldn't be hosted<span>
