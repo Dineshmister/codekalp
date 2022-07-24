@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+{% block content%}
+
+
+{% include 'menu.html'%}
+
+
+<form action="" method="POST">
+
+    
+    <!-- <button type="submit">subm,it</button> -->
+    <div class="container-lg">
+            <div class="dash-box my-3">
+                    <h6 class="mx-2 title lead">select your language</h6>
+                    <!-- dropdown -->
+                    <select name="lang" id="language" class="mx-2 lang-dropdown" required>
+                        <option value=".py">python</option>
+                        <option value=".php">php</option>
+                        <option value=".cpp">c++</option>
+                    </select>
+                    <!-- post button -->
+                    <button class="ms-auto me-2 post-btn" type="submit">update</button>
+                </div>
+                <!-- post area -->
+                <h4 class="title my-2">post your code..</h4>
+                <textarea name="ale" id="post-code">{{one["POST_CODE"]}}</textarea>
+                <h4 class="title my-2">description</h4>
+                <textarea name="description" id="description" required>{{one["POST_DESCRIPT"]}}</textarea>
+            </form>
+            
+
+    </div>
+    
+
+
+<div class="container-lg">
+    
+
+</div>
+
+
+
+</div>
+
+<script src="{{url_for('static',filename='css/codemirror.js')}}"></script>
+<script src="{{url_for('static',filename='css/python.js')}}"></script>
+
+
+
+<script>
+    function slideout() {
+        document.getElementById("side-bar").classList.toggle("left")
+    }
+    function drop() {
+
+        document.getElementById("drop").classList.toggle("swp-class");
+    }
+
+    var editor = CodeMirror.fromTextArea(document.getElementById('post-code'),{
+        mode:"python",
+        theme:"base16-dark",
+        lineNumbers:true
+    });
+    editor.setSize(1100,500)
+
+</script>
+
+</script>
+
+{%endblock%}

@@ -1,0 +1,93 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<style>
+        img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            margin:0 3px;
+        }
+        .msg-sending{
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            height: 200px;
+            align-items: center;
+
+        }
+        .msg-sending > pre{
+            min-width: 290px;
+            width: fit-content;
+            height: fit-content;
+        }
+        .msg-sending > svg{
+            color: green;
+        }
+        .count{
+            position: fixed;
+            top: 10px;
+        
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            border: 3px solid blue;
+            
+            
+        }
+        .count > p{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            color: whitesmoke;
+            
+
+        }
+    </style>
+
+
+<div class="container">
+    <h3 class="text-center text-info">sent by you</h3>
+    <div class="count">
+         <p class="display-5">{{check_count}}</p>
+    </div>
+    {%for x in messages%}
+    <div class="msg-sending">
+        <div class="d-flex align-items-center">
+            <img src="{{url_for('static',filename=x['PROFILE_PIC'])}}" alt="">
+              {%if session['username'] == x['POSTED_BY']%}
+                <h3>you</h3>
+              {%endif%}
+           
+
+        </div>
+        
+        <pre>
+            <code>
+{{x['POST_CODE']}}
+            </code>
+        </pre>
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+          </svg>
+        sent to {{x['USER_NAME']}}
+           
+
+    </div>
+   
+        
+          
+            
+         
+         
+
+    
+    {%endfor%}
+</div>
+
+
+{%endblock%}

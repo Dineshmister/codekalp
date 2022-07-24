@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<style>
+    .par{
+        display: grid;
+        place-items: center;
+    }
+    #search-bar{
+        margin-top:10px ;
+        width: 50%;
+        height: 40px;
+        border-radius: 10px;
+        background-color: rgba(24, 23, 23, 0.301);
+        border: 1px solid rgb(8, 195, 241);
+        outline: none;
+        color: whitesmoke;
+        text-align: center;
+        /* border: none; */
+        
+    }
+    #search-bar:focus{
+        box-shadow: 0 0 10px rgb(8, 195, 241);
+        
+
+    }
+</style>
+{% include 'menu.html'%}
+
+
+
+
+<div class="par">
+    <input type="search" name="" id="search-bar" placeholder="search..."><span id="mess" class="text-white h6 mx-4"></span>
+
+
+</div>
+
+<div class="container my-4" id="appending">
+
+</div>
+
+
+<script src="{{url_for('static',filename='css/jquery-3.6.0.min.js')}}"></script>
+
+
+<script>
+    $(document).ready(function (){
+        $("#search-bar").on("keyup",function(){
+            let searched = $(this).val()
+            $("#mess").html("searching...")
+            aftersearched = $.ajax({
+                url:"/results",
+                type:"POST",
+                data:{
+                    resultsdata : searched
+                }
+            })
+            aftersearched.done(function (data){
+
+                $(".container").html(data)
+                $(".container").append(data.response)
+                $("#mess").html(data.message)
+
+            })
+        })
+    })
+</script>
+
+{%endblock%}

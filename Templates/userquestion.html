@@ -1,0 +1,80 @@
+{% extends 'base.html'%}
+{% block content%}
+
+{% include 'menu.html'%}
+
+
+
+{%if count_questions == 0%}
+  <h1 class="text-white text-center my-5">no questions yet..</h1>
+{%endif%}
+
+<div class="container-lg">
+    <div class="row">
+        {% for x in show_post %}
+        <div class="col-lg-4 col-12">
+            <div class="description-card">
+                <div class="user-avatar my-1 p-1">
+                    <img src="{{url_for('static',filename=x['PROFILE_PIC'])}}" alt="" class="all-img">
+                    {%if session["LOGGED_USER"] == x["QUESTIONED_BY"]%}
+                       <a href="{{url_for('myprofile')}}" class="text-decor">
+                           <h4 class="mx-1 text-muted">{{x["QUESTIONED_BY"]}}</h4>
+                   
+
+                        </a>
+                    {%else%}
+                        <a href="{{url_for('clickedprofile',userid = x['QUESTIONED_BY'])}}" class="text-decor">
+                          <h4 class="mx-1 text-muted">{{x["QUESTIONED_BY"]}}</h4>
+                   
+
+                        </a>
+                    {%endif%}
+                    
+
+                    <span class="badge bg-info mx-2">{{x["LANG"]}}</span>
+                </div>
+                <div class="description-text card p-3">
+                    <p>{{x["QUEST_DESCRIPT"]}}</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-8 col-12">
+            <div class="user-post-display my-2">
+                <div class="apple px-2">
+                    <div class="red"></div>
+                    <div class=""></div>
+                    <div class=""></div>
+                    <h6 class="lead ms-auto me-3 text-muted">{{x["QUEST_LANG"]}}</h6>
+                    <a href="{{url_for('answer',question_id=x['QUESTION_ID'])}}" class="btn btn-outline-info">answer</a>
+                </div>
+                <div class="post-content my-2">
+                    <pre>
+                        <code>
+{{x["QUEST_CODE"]}}
+                        </code>
+                    </pre>
+                </div>
+
+            </div>
+
+        </div>
+        {%endfor%}
+    </div>
+
+
+</div>
+
+
+<script>
+    function slideout() {
+        document.getElementById("side-bar").classList.toggle("left")
+    }
+    function drop() {
+
+        document.getElementById("drop").classList.toggle("swp-class");
+    }
+</script>
+
+
+{%endblock%}

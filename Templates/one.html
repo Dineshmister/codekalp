@@ -1,0 +1,300 @@
+{% extends 'base.html'%}
+{% block content%}
+
+
+<style>
+    img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        margin: 0 3px;
+    }
+
+    .outer-pop {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        background-color: rgb(255, 255, 255, .1);
+        z-index: 6;
+        display: none;
+    }
+
+    .cls-btn {
+        background: transparent;
+        outline: none;
+        border: none;
+    }
+
+    .inner-pop {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: auto;
+        background-color: black;
+        overflow-y: auto;
+    }
+
+    #post-id {
+        border: 1px solid white;
+        border-radius: 10px;
+        color: var(--secondarycolor)
+    }
+
+    .kalp-fixed {
+        text-shadow: 0 0 10px whitesmoke;
+        font-weight: 900;
+        color: whitesmoke;
+    }
+
+    .like-update {
+        background-color: transparent;
+        outline: none;
+        border: none;
+    }
+
+    .like-update>svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .like-counter {
+        color: whitesmoke;
+        font-weight: bold;
+
+    }
+
+    #cmtarea {
+        width: 100%;
+        height: 200px;
+        resize: none;
+        outline: none;
+        border-radius: 10px;
+        background-color: rgb(24, 23, 23);
+        border: none;
+        box-shadow: inset 0 0 10px black;
+        color: whitesmoke;
+        padding: 6px;
+
+    }
+
+    .comment-pop {
+        background-color: rgb(24, 23, 23);
+        color: whitesmoke;
+
+    }
+
+    #getcomments {
+        background-color: transparent;
+        border: 1px solid blue;
+        box-shadow: 0 0 10px blue;
+        color: whitesmoke;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    .btn-svg {
+        background-color: transparent;
+        height: fit-content;
+        width: fit-content;
+        outline: none;
+        border: none;
+
+    }
+
+    .btn-svg>svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .share-svg {
+        background-color: transparent;
+        height: fit-content;
+        width: fit-content;
+        outline: none;
+        border: none;
+
+
+    }
+
+    .share-svg>svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .unique-comment-display {
+        color: whitesmoke;
+
+    }
+
+    .unique-comment-display-box {
+        color: whitesmoke;
+        box-shadow: inset 0 0 10px black;
+        border-radius: 10px;
+        height: 80vh;
+        overflow-y: auto;
+
+    }
+
+    .user-info-with-comments>img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .userid-comment-box {
+        width: 100%;
+        height: fit-content;
+        min-height: 100px;
+        box-shadow: 0 0 10px black;
+        border-radius: 10px;
+
+
+    }
+    
+
+    .likers-bio {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        /* border: 1px solid red; */
+        border-radius: 10px;
+        box-shadow: 0 0 10px black;
+        color: whitesmoke;
+        outline: 1px solid black;
+    }
+    .likers-bio > img{
+        width: 45px;
+        height: 45px;
+        margin-left: 10px;
+        
+    }
+    .date{
+        font-size:17px;
+    }
+</style>
+
+{% include 'menu.html' %}
+
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 col-12">
+            <h3 class="text-white">liked by..<span class="badge mx-1 form-text rounded-pill bg-info">{{count_likers}}</span></h3>
+            <div class="likers">
+                {%for y in likers%}
+                {%if session["LOGGED_USER"] == y["LIKED_BY"]%}
+                <a href="{{url_for('myprofile')}}" class="text-decor">
+                    <div class="likers-bio list-inline my-2">
+                        <img src="{{url_for('static',filename=y['PROFILE_PIC'])}}" alt="" class="small-img">
+                        <h5 class="lead mx-5">{{y["LIKED_BY"]}}</h5>
+                        <!-- <div class="form-text date">{{y["DATE"]}}</div> -->
+                    </div>
+    
+
+                </a>
+            {%else%}
+                <a href="{{url_for('clickedprofile',userid = y['LIKED_BY'])}}" class="text-decor">
+                    <div class="likers-bio list-inline my-2">
+                        <img src="{{url_for('static',filename=y['PROFILE_PIC'])}}" alt="" class="small-img">
+                        <h5 class="lead mx-5">{{y["LIKED_BY"]}}</h5>
+                        <!-- <div class="form-text date">{{y["DATE"]}}</div> -->
+                    </div>
+    
+
+                </a>
+            {%endif%}
+
+
+                
+                {%endfor%}
+
+            </div>
+
+        </div>
+        <div class="col-lg-5 col-12">
+            <div class="description-card">
+                <div class="user-avatar my-1 p-1">
+                    <img src="{{url_for('static',filename=one['PROFILE_PIC'])}}" alt="" class="all-img">
+                    <h4 class="mx-1 text-muted">{{one["POSTED_BY"]}}</h4>
+                    <span class="badge bg-info mx-2">{{one["LANGUAGE"]}}</span>
+                </div>
+                <div class="description-text card p-3">
+                    <p>{{one["POST_DESCRIPT"]}}</p>
+                </div>
+                <small class="text-muted">{{one["DATE"]}}</small>
+            </div>
+            <div class="user-post-display my-2">
+                <div class="apple px-2">
+                    <div class=""><span class="kalp-fixed">{{one["LANG"]}}</span></div>
+                    <div class=""></div>
+                    <div class=""></div>
+                    <h6 class="lead ms-auto me-3 text-white">{{one["POSTED_BY"]}}</h6>
+                    <!-- <span id="" class="like-counter mx-1">{{one["COUNT_OF_LIKES"]}}</span> -->
+
+                </div>
+                <div class="post-content my-2">
+                    <pre>
+                        <code>
+{{one["POST_CODE"]}}
+                        </code>
+                    </pre>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="col-lg-5 col-12">
+            <div class="unique-comment-display">
+                <h3 class="lead my-2">comments <span class="badge rounded-pill bg-info">{{count_comments}}</span></h3>
+                <div class="unique-comment-display-box p-2">
+                    {%for x in comments%}
+
+                    <div class="d-flex align-items-center user-info-with-comments">
+                        <img src="{{url_for('static',filename=x['PROFILE_PIC'])}}" alt="">
+                        <h6 class="lead">{{x["COMMENTED_BY"]}}</h6>
+                    </div>
+                    <div class="userid-comment-box p-2 my-1">
+                        {{x["COMMENT"]}}
+                    </div>
+                    {%endfor%}
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script src="{{url_for('static',filename='css/clipboard.min.js')}}"></script>
+<script src="{{url_for('static',filename='css/bootstrap.min.js')}}"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="{{url_for('static',filename='css/jquery-3.6.0.min.js')}}"></script>
+
+
+<script>
+    function slideout() {
+        document.getElementById("side-bar").classList.toggle("left")
+    }
+    function drop() {
+
+        document.getElementById("drop").classList.toggle("swp-class");
+    }
+    // getting post id
+</script>
+
+{%endblock%}

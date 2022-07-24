@@ -1,0 +1,313 @@
+{% extends 'base.html'%}
+{% block content%}
+
+
+<style>
+    img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        margin: 0 3px;
+    }
+
+    .outer-pop {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        background-color: rgb(255, 255, 255, .1);
+        z-index: 6;
+        display: none;
+    }
+
+    .cls-btn {
+        background: transparent;
+        outline: none;
+        border: none;
+    }
+
+    .inner-pop {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: auto;
+        background-color: black;
+        overflow-y: auto;
+    }
+
+    #post-id {
+        border: 1px solid white;
+        border-radius: 10px;
+        color: var(--secondarycolor)
+    }
+
+   
+    
+    #cmtarea {
+        width: 100%;
+        height: 200px;
+        resize: none;
+        outline: none;
+        border-radius: 10px;
+        background-color: rgb(24, 23, 23);
+        border: none;
+        box-shadow: inset 0 0 10px black;
+        color: whitesmoke;
+        padding: 6px;
+
+    }
+   
+   
+   
+</style>
+{% include 'menu.html'%}
+
+<!-- comments -->
+
+<div class="modal fade " id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content  comment-pop">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">comments</h5>
+                <button type="button" class="btn-close bg-info" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span class="post-id" id="postid"></span>
+                <span id="post-comments"></span>
+                <h4 class="lead">post your comments......</h4>
+                <textarea name="" id="cmtarea"></textarea>
+                <button class="d-block" type="submit" id="getcomments">comment</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- comments -->
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {%for y in signup_details%}
+                <span class="" id="post-id" style="opacity:0">
+
+                </span>
+                <span class="" id="sendid"></span>
+                <div class="d-flex align-items-center justify-content-between p-2">
+                    <img src="{{url_for('static',filename=y['PROFILE_PIC'])}}" alt="">
+                    <h5>{{y["USER_NAME"]}}</h5>
+
+
+                    <button type="button" value="{{y['USER_ID']}}" id="send-btn">send</button>
+                </div>
+
+
+
+                {%endfor%}
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4>are you sure you want to delete the post?</h4>
+                
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info del-link" data-bs-dismiss="modal">cancel</button>
+                <a href="#" class="del-link btn btn-danger">delete</a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if count_questions == 0 %}
+  <h1 class="text-white text-center my-5">no questions yet</h1>
+{%endif%}
+
+
+
+
+
+
+
+
+<div class="container-lg">
+    <div class="row">
+        {% for x in show_post %}
+        <div class="col-lg-4 col-12">
+            <a href="{{url_for('clickedprofile',userid=x['POSTED_BY'])}}">
+                    <div class="description-card">
+                            <div class="user-avatar my-1 p-1">
+                                <img src="{{url_for('static',filename=x['PROFILE_PIC'])}}" alt="" class="all-img">
+                                {%if session["LOGGED_USER"] == x["QUESTIONED_BY"]%}
+                                    <a href="{{url_for('myprofile')}}" class="text-decor">
+                                    <h4 class="mx-1 text-muted">{{x["QUESTIONED_BY"]}}</h4>
+                   
+
+                        </a>
+                    {%else%}
+                           <a href="{{url_for('clickedprofile',userid = x['QUESTIONED_BY'])}}" class="text-decor">
+                          <h4 class="mx-1 text-muted">{{x["QUESTIONED_BY"]}}</h4>
+                   
+
+                        </a>
+                    {%endif%}
+                    
+                            </div>
+                            <div class="description-text card p-3">
+                                <p>{{x["QUEST_DESCRIPT"]}}</p>
+                            </div>
+                            <small class="text-muted">{{x["DATE"]}}</small>
+                        </div>
+            
+
+            </a>
+            
+        </div>
+        <div class="col-lg-8 col-12">
+            <div class="user-post-display my-2">
+                <div class="apple px-2">
+                    <div class="red"></div>
+                    <div class=""><span class="kalp-fixed">{{x["QUEST_LANG"]}}</span></div>
+                    <!-- <div class="ms-auto me-5"> -->
+                        <a href="{{url_for('answer',question_id=x['QUESTION_ID'])}}" class="btn btn-outline-info ms-auto">answer</a>
+    
+
+                    <!-- </div> -->
+                    
+
+                    
+                    
+                    
+
+
+
+
+                </div>
+                <div class="post-content my-2">
+                    <pre>
+                        <code>
+{{x["QUEST_CODE"]}}
+                        </code>
+                    </pre>
+                </div>
+
+            </div>
+
+        </div>
+        {%endfor%}
+    </div>
+
+
+</div>
+
+
+<script src="{{url_for('static',filename='css/clipboard.min.js')}}"></script>
+<script src="{{url_for('static',filename='css/bootstrap.min.js')}}"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="{{url_for('static',filename='css/jquery-3.6.0.min.js')}}"></script>
+
+
+<script>
+    function slideout() {
+        document.getElementById("side-bar").classList.toggle("left")
+    }
+    function drop() {
+
+        document.getElementById("drop").classList.toggle("swp-class");
+    }
+    // getting post id 
+    
+
+    // comments 
+    $(document).ready(function(){
+        $("#getcomments").on("click",function(){
+            let comment = $("#cmtarea").val()
+            let postid = $("#postid").html()
+            console.log(postid)
+            commented = $.ajax({
+                url:"/comment",
+                type:"POST",
+                data:{
+                    reqpost : postid,
+                    commentinfo:comment
+                }
+            })
+            commented.done(function(data){
+                $("#cmtarea").val(data.comment)
+            })
+            
+            
+
+            
+            
+        })
+    })
+
+    $(document).ready(function(){
+        $(".btn-svg").on("click",function(){
+            let post_id = $(this).val()
+            $(".post-id").text(post_id)
+
+
+        })
+    })
+    
+    // jquery 
+    $(document).ready(function () {
+        $(".like-update").on("click", function () {
+            let likedpost = $(this).val()
+            console.log(likedpost)
+            afterliked = $.ajax({
+                url: "/updatelike",
+                type: "POST",
+                data: {
+                    likedpost: likedpost
+                }
+            })
+            afterliked.done(function (data) {
+                $("#like-counter" + likedpost).text(data.counter)
+            })
+
+
+        })
+    })
+
+    $(document).ready(function() {
+        $(".delete-svg").on("click",function(){
+            let del = $(".delete-svg").val()
+            $(".del-link").attr("href",del)
+
+        })
+    })
+
+</script>
+
+
+{%endblock%}

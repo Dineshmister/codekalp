@@ -1,0 +1,96 @@
+{% extends 'base.html'%}
+{% block content%}
+<div class="container signuppage">
+    <h1 class="text-center display-3 title-card">code<span class="bright display-2">kalp</span></h1>
+</div>
+
+
+<div class="container my-5 p-4">
+    <form action="" method="POST">
+    <div class="main-box">
+        <div class="left-box">
+            <div class="pose">
+                <h3 class="display-4 text-white">code<span class="fw-bold brand">kalp</span></h3>
+                <h3 class="small">login</h3>
+
+            </div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+            <div class="left-child"></div>
+        </div>
+       
+            <div class="card signup-card p-3">
+                    {%for message in get_flashed_messages()%}
+                    <div class="form-text text-danger">{{message}}</div> 
+                  {%endfor%}
+                 
+                <!-- <label for="email" class="my-1 fw-bold">email</label> -->
+                <!-- <input type="email" name="email" id="email" class="input-sign" required> -->
+                <!-- <label for="name" class="my-1 fw-bold">name</label> -->
+                <!-- <input type="text" name="name" id="name" class="input-sign" required> -->
+                <label for="username" class="my-1 fw-bold">username</label>
+                <input type="text" name="username" id="username" class="input-sign" required>
+                <label for="password" class="my-1 fw-bold">password</label>
+                <input type="password" name="password" id="password" class="input-sign" required>
+                <button type="submit" class="sign-button my-3">login</button>
+                <div class="form-text d-block">dont have an account?<a href="{{url_for('signup')}}" class="link-remove badge bg-primary rounded-pill mx-2">signup?</a></div>
+            </div>
+
+
+        </form>
+        
+       
+       
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{%endblock%}

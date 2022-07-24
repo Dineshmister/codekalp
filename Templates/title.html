@@ -1,0 +1,322 @@
+{% extends 'base.html'%}
+{% block content%}
+ 
+ 
+ <style>
+        
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            border: 1px solid rgb(8, 170, 245);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: black;
+        }
+
+        #comments {
+            width: 100%;
+            height: 100px;
+            resize: none;
+            outline: none;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgba(29, 27, 27, 0.966);
+            border: 0;
+            box-shadow: inset 0 0 10px black;
+            color: whitesmoke;
+        }
+
+        .comment-section {
+            width: 100%;
+            height: 85vh;
+            border-radius: 10px;
+            border: 2px solid black;
+            overflow-y: auto;
+            background-color: rgba(29, 27, 27, 0.966);
+            border: 0;
+            box-shadow: 0 0 10px black;
+            padding: 10px;
+        }
+
+        .box-comment {
+            display: flex;
+            align-items: flex-start;
+            height: 50px;
+            /* border: 1px solid red; */
+            width: fit-content;
+
+        }
+
+        .box-comment>img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            border: 2px solid rgb(8, 170, 245);
+
+        }
+
+        .box-comment>p {
+            box-shadow: 0 0 10px black;
+            padding: 4px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            text-shadow: 0 0 3px whitesmoke;
+        }
+
+        .user-comment {
+            box-shadow: 0 0 10px black;
+            padding: 10px;
+            border-bottom-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .user-written {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .hstack>.comment-btn {
+            transform: rotate(90deg);
+            height: fit-content;
+            width: fit-content;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 100;
+            background-color: transparent;
+            border: 2px solid rgb(8, 170, 245);
+            color: rgb(8, 170, 245);
+            box-shadow: 0 0 10px rgb(8, 170, 245);
+            transition: all .5s;
+        }
+
+        .comment-btn:hover {
+            background-color: rgb(8, 170, 245);
+            color: black;
+            border: 0;
+            box-shadow: 0 0 10px rgb(8, 170, 245);
+        }
+
+        .loading {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 10;
+            background-color: black;
+
+        }
+
+        .loading>.codekalp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: whitesmoke;
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            height: 100px;
+            animation: blur 1s ease-out;
+                        
+            
+            /* border: 1px solid red; */
+            /* text-shadow: 0 0 10px whitesmoke; */
+
+        }
+        .kalp > .code{
+            text-shadow:0 0 5px whitesmoke;
+                             
+                        
+        }
+
+        .codekalp>svg {
+            width: 80px;
+            height: 80px;
+        }
+
+        
+        .letter-k{
+            /* animation-delay: 2s; */
+            font-weight: 700;
+        }
+        .letter-a{
+            /* animation-delay:2.5s ; */
+            font-weight: 700;
+
+        }
+        .letter-l{
+            /* animation-delay: 3s; */
+            font-weight: 700;
+
+        }
+        .letter-p{
+            /* animation-delay: 3.5s; */
+            font-weight: 700;
+        }
+        .kalp > .ale{
+            animation: inandout 2s ease 1s,
+                       light 6s ease-in-out 2s infinite;
+            /* animation-duration: 4s; */
+            /* animation-name: light; */
+            
+        }
+        
+        @keyframes light{
+            0%,10%,30%,70%,90%{
+                text-shadow: none;
+                /* color: transparent; */
+            }
+            4%,12%,20%,29%,50%,100%{
+                /* color: whitesmoke; */
+                text-shadow: 0 0 5px whitesmoke,
+                             0 0 7px whitesmoke,
+                             0 0 10px rgb(8, 170, 245),
+                             0 0 13px rgb(8, 170, 245),
+                             0 0 17px rgb(8, 170, 245),
+                             0 0 19px rgb(8, 170, 245),
+                             0 0 23px rgb(8, 170, 245);
+                             
+        }
+    }
+        @keyframes blur{
+            from{
+                filter: blur(10px);
+                letter-spacing: 60px;
+            }
+            to{
+                letter-spacing: normal;
+                filter: blur(0);
+            }
+        }
+        
+        @keyframes inandout{
+            from{
+                /* color: black; */
+                transform: rotateY(-360deg);
+
+            }
+            to{
+                /* transform: rotateY(90deg); */
+                color: whitesmoke;
+                opacity: 1;
+                 
+            }
+        }
+        
+    </style>
+    <!-- <div class="loading" id="loading">
+        <div class="codekalp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code-slash"
+                viewBox="0 0 16 16">
+                <path
+                    d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z" />
+            </svg>
+            <div class="kalp d-flex">
+                <h1 class="display-1 code">code</h1>
+                <h1 class="letter-k display-1 ale">k</h1>
+                <h1 class="letter-a display-1 ale">a</h1>
+                <h1 class="letter-l display-1 ale">l</h1>
+                <h1 class="letter-p display-1 ale">p</h1>
+
+            </div>
+
+            
+        </div>
+        
+    </div> -->
+
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-lg-4 col-12 text-white">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In deserunt sit sequi possimus alias,
+                voluptatum, neque voluptas reprehenderit ipsum, molestiae eveniet culpa a! Explicabo unde quaerat
+                repellat corrupti voluptas modi?
+
+            </div>
+            <div class="col-lg-8 col-12 text-white">
+                <h3 class="lead my-2">comments..</h3>
+                <div class="comment-section">
+                    <div class="box-comment">
+                        <img src="#" alt="">
+                        <p class="lead mx-1">username</p>
+
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. A aspernatur totam possimus tempora
+                        veniam aut repellat voluptate aliquid quo incidunt, provident illo reprehenderit dolore culpa.
+                        Eos maxime voluptatem mollitia consequuntur.
+                    </div>
+                    <div class="box-comment my-2">
+                        <img src="./img/cersei.jpg" alt="">
+                        <p class="lead mx-1">username</p>
+
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. A aspernatur totam possimus tempora
+                        veniam aut repellat voluptate aliquid quo incidunt, provident illo reprehenderit dolore culpa.
+                        Eos maxime voluptatem mollitia consequuntur.
+                    </div>
+                    <div class="box-comment">
+                        <img src="./img/cersei.jpg" alt="">
+                        <p class="lead mx-1">username</p>
+
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. A aspernatur totam possimus tempora
+                        veniam aut repellat voluptate aliquid quo incidunt, provident illo reprehenderit dolore culpa.
+                        Eos maxime voluptatem mollitia consequuntur.
+                    </div>
+                    <div class="box-comment">
+                        <img src="./img/cersei.jpg" alt="">
+                        <p class="lead mx-1">username</p>
+
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. A aspernatur totam possimus tempora
+                        veniam aut repellat voluptate aliquid quo incidunt, provident illo reprehenderit dolore culpa.
+                        Eos maxime voluptatem mollitia consequuntur.
+                    </div>
+                    <div class="box-comment">
+                        <img src="./img/cersei.jpg" alt="">
+                        <p class="lead mx-1">username</p>
+
+                    </div>
+                    <div class="user-comment">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. A aspernatur totam possimus tempora
+                        veniam aut repellat voluptate aliquid quo incidunt, provident illo reprehenderit dolore culpa.
+                        Eos maxime voluptatem mollitia consequuntur.
+                    </div>
+
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- loading -->
+
+    <!-- timeout -->
+    <!-- <script>
+        setTimeout(function(){
+            document.getElementById("loading").style.display="none"
+
+        },4000
+        
+        )
+    </script> -->
+{%endblock%}

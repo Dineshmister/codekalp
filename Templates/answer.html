@@ -1,0 +1,106 @@
+{% extends 'base.html'%}
+{% block content%}
+
+
+{% include 'menu.html'%}
+
+
+
+
+<div class="container-lg">
+    <div class="row">
+        <div class="col-lg-4 col-12">
+            <div class="description-card">
+                <div class="user-avatar my-1 p-1">
+                    <img src="{{url_for('static',filename=one['PROFILE_PIC'])}}" alt="" class="all-img">
+                    {%if session["LOGGED_USER"] == one["QUESTIONED_BY"]%}
+                    <a href="{{url_for('myprofile')}}" class="text-decor text-white">
+                        <h4 class="mx-1 text-muted">{{one["QUESTIONED_BY"]}}</h4>
+                
+
+                     </a>
+                 {%else%}
+                     <a href="{{url_for('clickedprofile',userid = one['QUESTIONED_BY'])}}" class="text-decor text-white">
+                       <h4 class="mx-1 text-muted">{{one["QUESTIONED_BY"]}}</h4>
+                
+
+                     </a>
+                 {%endif%}
+                 
+
+                    <!-- <span class="badge bg-info  mx-2">{{one["QUEST_LANG"]}}</span> -->
+                </div>
+                <div class="description-text card p-3">
+                    <p>{{one["QUEST_DESCRIPT"]}}</p>
+                </div>
+            </div>
+            <div class="user-post-display my-2">
+                <div class="apple px-2">
+                    <div class="red"></div>
+                    <div class=""></div>
+                    <div class=""></div>
+                    <h6 class="lead ms-auto me-3 text-muted fw-bold">{{one["QUEST_LANG"]}}</h6>
+                </div>
+                <div class="post-content-one my-2">
+                    <pre>
+                        <code>
+                            {{one["QUEST_CODE"]}}
+                        </code>
+                    </pre>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="col-lg-8 col-12">
+            <form action="" method="POST">
+                <div class="dash-box my-3">
+                    <h6 class="mx-2 title lead">post your answer</h6>
+                    <!-- dropdown -->
+                    <!-- post button -->
+                    <button class="ms-auto me-2 answer-btn" type="submit">answer</button>
+                </div>
+
+                <textarea name="answer" id="answer_post"></textarea>
+                <h6 class="title my-1">description</h6>
+                <textarea name="ans-desc" id="answer_post" class="my-1"></textarea>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script src="{{url_for('static',filename='css/codemirror.js')}}"></script>
+<script src="{{url_for('static',filename='css/python.js')}}"></script>
+
+<script>
+    function slideout() {
+        document.getElementById("side-bar").classList.toggle("left")
+    }
+    function drop() {
+
+        document.getElementById("drop").classList.toggle("swp-class");
+    }
+
+        var editor = CodeMirror.fromTextArea(document.getElementById('answer_post'),{
+            mode:"python",
+            theme:"base16-dark",
+            lineNumbers:true
+    });
+    editor.setSize(800,600)
+
+</script>
+
+
+
+
+{%endblock%}

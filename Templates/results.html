@@ -1,0 +1,40 @@
+
+<style>
+    .search-img{
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin: auto;
+        object-fit: cover;
+        object-position: center;
+        box-shadow: -2px 0 30px black;
+    }
+    .card{
+        border-radius: 10px;
+        background-color:rgb(24, 23, 23) ;
+        box-shadow: 0 0 10px black;
+        color: whitesmoke;
+        padding: 10px;
+
+    }
+    
+</style>
+<div class="container">
+    {% for x in searching_db %}
+    <div class="card w-50 m-auto my-2">
+        <img src="{{url_for('static',filename=x['PROFILE_PIC'])}}" alt="" class="search-img my-1">
+        {%if session["LOGGED_USER"] == x["POSTED_BY"]%}
+                <a href="{{url_for('myprofile')}}" class="text-decor">
+                    <h4 class="mx-1 text-center  text-muted">{{x["USER_NAME"]}}</h4>
+                </a>
+        {%else%}
+                <a href="{{url_for('clickedprofile',userid = x['USER_NAME'])}}" class="text-decor">
+                    <h4 class="mx-1  text-center text-muted">{{x["USER_NAME"]}}</h4>
+                </a>
+        {%endif%}
+                                
+        <!-- <h4 class="text-center">{{x["USER_NAME"]}}</h4> -->
+    </div>
+    {%endfor%}
+</div>
+

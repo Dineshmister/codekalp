@@ -1,0 +1,118 @@
+{% extends 'base.html'%}
+{% block content%}
+
+
+
+
+{% include 'menu.html' %}
+{%if count_answer == 0%}
+  <h1 class="text-white text-center my-5">no answers yet..</h1>
+{%endif%}
+
+
+
+<div class="container">
+    <div class="row p-2">
+        {% for x in display_all %}
+        <div class="col-lg-6 col-12">
+            <!-- user question with descreption and code -->
+    
+            <div class="description-card">
+                <div class="user-avatar my-1 p-1">
+                    <img src="{{url_for('static',filename=x['PROFILE_PIC'])}}" alt="" class="all-img">
+                    {%if session["LOGGED_USER"] == x["QUESTIONED_BY"]%}
+                       <a href="{{url_for('myprofile')}}" class="text-decor">
+                           <h4 class="mx-1 text-muted">{{x["QUESTIONED_BY"]}}</h4>
+                   
+
+                        </a>
+                    {%else%}
+                        <a href="{{url_for('clickedprofile',userid = x['QUESTIONED_BY'])}}" class="text-decor">
+                          <h4 class="mx-1 text-muted">{{x["QUESTIONED_BY"]}}</h4>
+                   
+
+                        </a>
+                    {%endif%}
+                    
+                    <span class="badge bg-info mx-2">{{x["QUEST_LANG"]}}</span>
+                </div>
+                <div class="description-text card p-3">
+                    <p>{{x["QUEST_DESCRIPT"]}}</p>
+                </div>
+            </div>
+            <div class="user-post-display my-2">
+                <div class="post-content my-2">
+                    <pre>
+                            <code>
+    {{x["QUEST_CODE"]}}
+                            </code>
+                        </pre>
+                </div>
+    
+            </div>
+    
+    
+        </div>
+        
+        <div class="col-lg-6 col-12">
+            <!-- code -->
+            <div class="description-card">
+                    <div class="user-avatar my-1 p-1">
+                        <!-- <img src="{{url_for('static',filename=x['PROFILE_PIC'])}}" alt="" class="profile-img"> -->
+                        <h5 class="lead text-info">Answered by</h5>
+                    {%if session["LOGGED_USER"] == x["ANSWERED_BY"]%}
+                    <a href="{{url_for('myprofile')}}" class="text-decor text-white">
+                        <h4 class="mx-1 text-muted">{{x["ANSWERED_BY"]}}</h4>
+                
+
+                     </a>
+                 {%else%}
+                     <a href="{{url_for('clickedprofile',userid = x['ANSWERED_BY'])}}" class="text-decor text-white">
+                       <h4 class="mx-1 text-muted">{{x["ANSWERED_BY"]}}</h4>
+                
+
+                     </a>
+                 {%endif%}
+                        <span class="badge bg-info mx-2">{{x["LANGUAGE"]}}</span>
+                        
+                    </div>
+                    <div class="description-text card p-3">
+                        <p>{{x["ANS_DESC"]}}</p>
+                    </div>
+                </div>
+        
+                <div class="user-post-display my-2">
+                        <div class="post-content my-2">
+                            <pre>
+                                <code>
+{{x["ANSWER"]}}
+                                </code>
+                            </pre>
+                        </div>
+        
+                    </div>
+    
+        </div>
+    
+    
+    {%endfor%}
+    </div>
+    
+
+</div>
+
+
+
+<script>
+    function slideout() {
+        document.getElementById("side-bar").classList.toggle("left")
+    }
+    function drop() {
+
+        document.getElementById("drop").classList.toggle("swp-class");
+    }
+
+</script>
+
+
+{% endblock%}

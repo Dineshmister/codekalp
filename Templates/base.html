@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/a11y-dark.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/codemirror.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/base16-dark.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+    
+    
+    
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>home</title>
+</head>
+
+<body>
+    {%block content%}
+
+    {%endblock%}
+
+    <script src="{{url_for('static',filename='css/jquery-3.6.0.min.js')}}"></script>
+    
+    
+    <script src="{{url_for('static',filename='css/highlight.min.js')}}"></script>
+    <script src="{{url_for('static',filename='css/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static',filename='css/bootsrap.bundle.min.js')}}"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+
+</html>

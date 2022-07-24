@@ -1,0 +1,78 @@
+{% extends 'base.html'%}
+{% block content%}
+
+<form action="" method="POST">
+<div class="user-profile-card card p-3 my-4">
+
+    <h5>choose your avatar</h5>
+    <div class="avatar">
+        <input type="radio" name="img" id="one" value="Images/zendaya.png" checked>
+        <label for="one">
+            <img src="{{url_for('static',filename='Images/zendaya.png')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="two" value="Images/thomas shelby.jpg">
+        <label for="two">
+            <img src="{{url_for('static',filename='Images/thomas shelby.jpg')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="three" value="Images/ada.jpg">
+        <label for="three">
+            <img src="{{url_for('static',filename='Images/ada.jpg')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="four" value="Images/mh berlin.jpg">
+        <label for="four">
+            <img src="{{url_for('static',filename='Images/mh berlin.jpg')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="five" value="Images/tyrion.png">
+        <label for="five">
+            <img src="{{url_for('static',filename='Images/tyrion.png')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="six" value="Images/tokyo mh.png">
+        <label for="six">
+            <img src="{{url_for('static',filename='Images/tokyo mh.png')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="seven" value="Images/jonwick.png">
+        <label for="seven">
+            <img src="{{url_for('static',filename='Images/jonwick.png')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="eight" value="Images/jon.png">
+        <label for="eight">
+            <img src="{{url_for('static',filename='Images/jon.png')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="nine" value="Images/girl withgun.jpg">
+        <label for="nine">
+            <img src="{{url_for('static',filename='Images/girl withgun.jpg')}}" alt="">
+
+        </label>
+        
+        <input type="radio" name="img" id="eleven" value="Images/dany.png">
+        <label for="eleven">
+            <img src="{{url_for('static',filename='Images/dany.png')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="twel" value="Images/gorgeous girl.png">
+        <label for="twel">
+            <img src="{{url_for('static',filename='Images/gorgeous girl.png')}}" alt="">
+
+        </label>
+        <input type="radio" name="img" id="thirty" value="Images/alexandra.png">
+        <label for="thirty">
+            <img src="{{url_for('static',filename='Images/alexandra.png')}}" alt="">
+
+        </label>
+    </div>
+    <p class="lead mx-2 fw-bold">your bio</p>
+    <textarea name="userbio" id="bio"></textarea>
+    <button class="btn btn-info my-3 fw-bold text-white" type="submit">create profile</button>
+
+</div>
+</form>
+
+{%endblock%}
